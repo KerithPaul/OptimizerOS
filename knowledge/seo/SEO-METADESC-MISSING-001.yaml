@@ -1,0 +1,28 @@
+rule_id: SEO-METADESC-MISSING-001
+category: technical_seo
+severity: low
+confidence: medium
+source:
+  name: "Google Search Central — How to write meta descriptions"
+  source_url: "https://developers.google.com/search/docs/appearance/snippet"
+  authority: official_vendor_docs
+retrieved_at: "2026-09-09"
+content: >
+  Google states the meta description "gives you complete control over the
+  words that can be used to generate the snippet" shown under a search
+  result, and that Google "sometimes uses the meta description ... when it
+  might give users a more accurate description ... than content taken
+  directly from the page." Its absence does not block indexing or ranking
+  — Google will auto-generate a snippet from page content instead — so
+  this is a lower-severity opportunity, not a defect, unlike a missing
+  <title>.
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: meta_description_missing
+  field: meta_description
+  operator: is_null
+recommendation: >
+  Add a short (Google recommends focusing on being accurate and specific,
+  not hitting a character target), page-specific meta description
+  summarizing the page's most relevant content.

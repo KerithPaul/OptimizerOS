@@ -1,0 +1,34 @@
+rule_id: GEO-AI-CRAWLER-ACCESS-001
+category: geo
+severity: medium
+confidence: high
+source:
+  name: "OpenAI — Overview of OpenAI crawlers"
+  source_url: "https://developers.openai.com/api/docs/bots"
+  authority: official_vendor_docs
+retrieved_at: "2026-09-09"
+content: >
+  GEO ("AI-system accessibility") is an ArchitectOS evaluation framework,
+  not an official Google, OpenAI, or Anthropic ranking formula — no such
+  vendor publishes a combined "GEO score." What is factually checkable is
+  narrower and mechanical: OpenAI's own documentation names GPTBot,
+  OAI-SearchBot, ChatGPT-User, and OAI-AdsBot as distinct, independently
+  controllable crawlers, and states site owners disallow each via
+  robots.txt. A robots.txt entry disallowing a known AI crawler's user
+  agent (a GPTBot-style disallow) does not affect classic Google SEO — it
+  is not a crawl error — but it does directly determine whether that AI
+  system's crawler is permitted to fetch and cite this content, which is
+  exactly what this ArchitectOS GEO signal measures.
+conditions:
+  applies_to: crawl_run
+  evaluation: mechanical
+  check: ai_bot_disallowed
+  field: stats_json.crawl.robots.ai_bot_disallows
+  operator: count_gt
+  value: 0
+recommendation: >
+  Review the disallowed AI-bot user agents named in
+  `crawl.robots.ai_bot_disallows` and confirm each is a deliberate choice
+  (e.g. opting out of training-data crawling) rather than an accidental
+  blanket disallow that also blocks a crawler the owner wants indexing/
+  citing this content, such as OAI-SearchBot.

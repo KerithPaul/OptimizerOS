@@ -1,0 +1,21 @@
+# ArchitectOS site health report schedule
+# Copy to site_report_schedule.yaml (or run: python -m app.scripts.site_report_schedule init)
+# Then edit timings here, or:
+#   python -m app.scripts.site_report_schedule set --id drmoksha-weekly --project-id 404 --weekday monday --at 09:00
+#   python -m app.scripts.site_report_schedule fire --id drmoksha-weekly
+#
+# weekday: monday..sunday or *
+# at: HH:MM in `timezone`
+# cron: optional 5-field crontab; if set, it wins over weekday/at (Sunday=0 or 7, Monday=1)
+
+timezone: Asia/Kolkata
+email_to: []
+schedules:
+  - id: drmoksha-weekly
+    project_id: 404
+    enabled: true
+    weekday: monday
+    at: "09:00"
+    cron: ""
+    email_to: []
+    timezone: ""

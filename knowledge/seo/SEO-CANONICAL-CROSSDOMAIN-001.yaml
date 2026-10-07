@@ -1,0 +1,30 @@
+rule_id: SEO-CANONICAL-CROSSDOMAIN-001
+category: technical_seo
+severity: medium
+confidence: medium
+source:
+  name: "Google Search Central — How to specify a canonical with rel=\"canonical\" and other methods"
+  source_url: "https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls"
+  authority: official_vendor_docs
+retrieved_at: "2026-09-09"
+content: >
+  Cross-domain canonicals are a documented, legitimate technique (Google:
+  "don't specify different URLs as canonical for the same page using
+  different canonicalization techniques" and its worked examples all use
+  same-site URLs), but on a site being audited for its own optimization a
+  canonical pointing at a different registrable domain than the page being
+  crawled is far more often a templating bug (e.g. a staging/CDN host
+  leaking into markup, or a copy-pasted canonical from another property)
+  than an intentional cross-domain consolidation. It is flagged as an
+  observation to verify, not assumed to be an error.
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: canonical_cross_domain
+  note: >
+    Fires when `canonical` is set and its registrable domain differs from
+    the registrable domain of `url`.
+recommendation: >
+  Confirm whether the cross-domain canonical is intentional (e.g. this page
+  is a syndicated copy of content whose home is elsewhere). If not, correct
+  the canonical to point at this site's own preferred URL.

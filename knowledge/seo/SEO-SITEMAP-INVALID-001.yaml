@@ -1,0 +1,28 @@
+rule_id: SEO-SITEMAP-INVALID-001
+category: technical_seo
+severity: medium
+confidence: high
+source:
+  name: "sitemaps.org — Sitemaps XML protocol"
+  source_url: "https://www.sitemaps.org/protocol.html"
+  authority: official_standard
+retrieved_at: "2026-09-09"
+content: >
+  The sitemaps protocol (the specification Google's own sitemap
+  documentation says it adheres to) defines a required XML structure: a
+  namespaced <urlset>, one <url> per entry, and a <loc> child on each. A
+  discovered sitemap that is not well-formed XML, uses the wrong root
+  element, or is missing required elements cannot be parsed reliably by
+  any consumer, meaning URLs in it may simply be invisible to crawlers
+  that give up on the first parse error.
+conditions:
+  applies_to: crawl_run
+  evaluation: mechanical
+  check: sitemap_invalid
+  note: >
+    Fires for any entry in `stats_json.crawl.sitemap.records` whose
+    `parse_state` is "invalid" or "not_xml".
+recommendation: >
+  Regenerate the sitemap through a validated sitemap generator, or fix the
+  malformed XML directly, and re-check it validates against the sitemaps.org
+  schema before relying on it again.

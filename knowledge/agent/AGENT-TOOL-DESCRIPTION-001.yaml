@@ -1,0 +1,24 @@
+rule_id: AGENT-TOOL-DESCRIPTION-001
+category: agent_accessibility
+severity: medium
+confidence: high
+source:
+  name: "W3C Web Machine Learning Community Group — WebMCP"
+  source_url: "https://webmachinelearning.github.io/webmcp"
+  authority: official_standard
+retrieved_at: "2026-09-23"
+content: >
+  A WebMCP tool definition has a description string. The declarative
+  form equivalent is the tooldescription attribute. An empty or missing
+  description does not tell an agent what the action does.
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: agent_tool_description_missing
+  note: >
+    For each detected tool whose description is missing or blank, fire
+    on {page url}#{tool name}. A dynamic description expression that is
+    not a string literal is not treated as missing.
+recommendation: >
+  Set a non-empty description on the tool (ModelContextTool.description
+  or the form tooldescription attribute) that states what the action does.

@@ -1,0 +1,443 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   ArchitectOS design system — dark-first, premium AI SaaS.
+
+   Brand: indigo→violet gradient accents on deep-ink surfaces.
+   Status: emerald (success), amber (warning), red (error), sky (info).
+   Neutrals: zinc. The app renders dark at all times (html.dark).
+--------------------------------------------------------------------------- */
+@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant light (&:where(.light, .light *));
+
+@theme {
+  --color-brand-50: #eef2ff;
+  --color-brand-100: #e0e7ff;
+  --color-brand-200: #c7d2fe;
+  --color-brand-300: #a5b4fc;
+  --color-brand-400: #818cf8;
+  --color-brand-500: #6366f1;
+  --color-brand-600: #4f46e5;
+  --color-brand-700: #4338ca;
+  --color-brand-800: #3730a3;
+  --color-brand-900: #312e81;
+  --color-brand-950: #1e1b4b;
+
+  --color-accent-400: #c084fc;
+  --color-accent-500: #a855f7;
+  --color-accent-600: #9333ea;
+
+  --color-ink: #0a0b10;
+
+  --animate-shimmer: shimmer 1.8s linear infinite;
+  --animate-fade-up: fade-up 0.45s cubic-bezier(0.21, 1.02, 0.73, 1) both;
+  --animate-pulse-soft: pulse-soft 2.2s ease-in-out infinite;
+
+  @keyframes shimmer {
+    from {
+      background-position: 200% 0;
+    }
+    to {
+      background-position: -200% 0;
+    }
+  }
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes pulse-soft {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.45;
+    }
+  }
+}
+
+:root,
+html.dark {
+  --background: #0a0b10;
+  --foreground: #e4e4e7;
+  color-scheme: dark;
+}
+
+/* Light theme — navy palette. Text tokens (100–500 in the dark design) map
+   to the navy-gray ink scale; surface tokens (800–950) map to the light
+   surfaces; brand/accent remap to deep navy so every brand-tinted class
+   (active nav pills, gradient buttons, links, focus rings) follows the
+   primary #123B6D; status hues deepen for AA contrast on light surfaces. */
+html.light {
+  --background: #f5f7fa;
+  --foreground: #172b4d;
+  color-scheme: light;
+
+  --color-zinc-50: #f0f4f8;   /* secondary surface */
+  --color-zinc-100: #172b4d;  /* primary text */
+  --color-zinc-200: #33415c;  /* strong text */
+  --color-zinc-300: #52657a;  /* secondary text */
+  --color-zinc-400: #7a8899;  /* muted text */
+  --color-zinc-500: #7a8899;  /* muted text */
+  --color-zinc-600: #52657a;  /* secondary text */
+  --color-zinc-700: #52657a;  /* secondary text */
+  --color-zinc-800: #e7edf3;  /* light border */
+  --color-zinc-900: #ffffff;  /* card surface */
+  --color-zinc-950: #ffffff;  /* brightest surface */
+
+  /* Brand → deep navy. 300/400 carry text/icon/link shades (hover #1E4F88),
+     500/600 fill primary buttons and active pills (hover #1E4F88,
+     active #0D2F57), 950 becomes the faint navy tint used behind pills. */
+  --color-brand-50: #eaf2fa;
+  --color-brand-100: #d7e6f5;
+  --color-brand-200: #1e4f88;
+  --color-brand-300: #123b6d;
+  --color-brand-400: #1e4f88;
+  --color-brand-500: #123b6d;
+  --color-brand-600: #123b6d;
+  --color-brand-700: #0d2f57;
+  --color-brand-800: #0d2f57;
+  --color-brand-900: #0d2f57;
+  --color-brand-950: #eaf2fa;
+  --color-accent-400: #1e4f88;
+  --color-accent-500: #123b6d;
+  --color-accent-600: #0d2f57;
+
+  /* Status hues: #16803C / #B7791F / #C53030 / #2563A6 for text+fills;
+     200-level stays slightly deeper than 300 for text on tinted chips. */
+  --color-emerald-300: #16803c;
+  --color-amber-300: #b7791f;
+  --color-red-300: #c53030;
+  --color-sky-300: #2563a6;
+  --color-emerald-400: #16803c;
+  --color-amber-400: #b7791f;
+  --color-red-400: #c53030;
+  --color-sky-400: #2563a6;
+
+  /* Status text hues (100/200) used on tinted note/badge surfaces. */
+  --color-red-200: #c53030;
+  --color-amber-200: #b7791f;
+  --color-emerald-200: #16803c;
+  --color-sky-200: #2563a6;
+
+  /* Used directly (not via zinc tokens) for dark-theme shadows and code panels. */
+  --color-orange-300: #b7791f;
+  --color-violet-300: #123b6d;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background-color: var(--background);
+  /* Layered ambient background: soft radial brand highlights, no noise.
+     Fixed attachment keeps the glow stable while content scrolls. */
+  background-image:
+    radial-gradient(64rem 36rem at 12% -12%, rgb(99 102 241 / 0.16), transparent 62%),
+    radial-gradient(52rem 30rem at 92% -6%, rgb(168 85 247 / 0.11), transparent 58%),
+    radial-gradient(72rem 42rem at 50% 118%, rgb(56 189 248 / 0.05), transparent 62%);
+  background-attachment: fixed;
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+}
+
+/* Light mode: soft navy ambient glow on the #F5F7FA page background. */
+html.light body {
+  background-image:
+    radial-gradient(64rem 36rem at 12% -12%, rgb(18 59 109 / 0.07), transparent 62%),
+    radial-gradient(52rem 30rem at 92% -6%, rgb(30 79 136 / 0.05), transparent 58%),
+    radial-gradient(72rem 42rem at 50% 118%, rgb(37 99 166 / 0.04), transparent 62%);
+}
+
+::selection {
+  background: rgb(99 102 241 / 0.35);
+}
+
+html.light ::selection {
+  background: rgb(18 59 109 / 0.22);
+}
+
+/* Slim dark scrollbars for inner scroll areas ------------------------------ */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(63 63 70 / 0.9) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgb(63 63 70 / 0.9);
+  border-radius: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Light mode scrollbars: navy-gray on transparent. */
+html.light * {
+  scrollbar-color: rgb(122 136 153 / 0.9) transparent;
+}
+html.light *::-webkit-scrollbar-thumb {
+  background: rgb(201 213 226 / 0.95);
+}
+
+/* Shared components ------------------------------------------------------ */
+@layer components {
+  .card {
+    @apply rounded-2xl border border-zinc-800/80 bg-zinc-900/50 shadow-[0_1px_0_0_rgb(255_255_255/0.04)_inset,0_16px_40px_-24px_rgb(0_0_0/0.8)] backdrop-blur-sm;
+  }
+
+  html.light .card {
+    @apply border-[#e1e8ef] bg-white shadow-[0_1px_2px_rgb(23_43_77/0.04),0_16px_40px_-28px_rgb(18_59_109/0.14)];
+  }
+
+  /* Interactive card: subtle lift + brand border on hover. */
+  .card-hover {
+    @apply transition duration-200 hover:-translate-y-px hover:border-brand-500/40 hover:bg-zinc-900/70 hover:shadow-[0_1px_0_0_rgb(255_255_255/0.06)_inset,0_20px_48px_-24px_rgb(79_70_229/0.35)];
+  }
+
+  html.light .card-hover {
+    @apply hover:border-[#b8cbe0] hover:bg-white hover:shadow-[0_1px_2px_rgb(23_43_77/0.04),0_20px_48px_-28px_rgb(18_59_109/0.28)];
+  }
+
+  .card-section {
+    @apply border-b border-zinc-800/70 last:border-b-0;
+  }
+
+  html.light .card-section {
+    @apply border-[#e7edf3];
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-lg bg-gradient-to-b from-brand-500 to-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-[0_1px_0_0_rgb(255_255_255/0.2)_inset,0_8px_20px_-8px_rgb(79_70_229/0.6)] transition hover:from-brand-400 hover:to-brand-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-400 disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-lg border border-zinc-700/80 bg-zinc-800/40 px-4 py-2 text-sm font-medium text-zinc-200 transition hover:border-zinc-600 hover:bg-zinc-800/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-400 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  html.light .btn-secondary {
+    @apply border-[#123b6d] bg-white text-[#123b6d] hover:border-[#123b6d] hover:bg-[#eaf2fa];
+  }
+
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-lg border border-red-500/40 bg-red-500/10 px-3 py-1.5 text-sm font-medium text-red-300 transition hover:border-red-500/60 hover:bg-red-500/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  html.light .btn-danger {
+    @apply border-[#c53030] bg-[#fdecec] text-[#c53030] hover:bg-[#f8d7d7];
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-1 rounded-lg px-2 py-1 text-sm font-medium text-zinc-400 transition hover:bg-zinc-800/70 hover:text-zinc-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-400;
+  }
+
+  .field-label {
+    @apply mb-1.5 block text-sm font-medium text-zinc-300;
+  }
+
+  .field-input {
+    @apply w-full rounded-lg border border-zinc-700/80 bg-zinc-900/70 px-3 py-2 text-sm text-zinc-100 shadow-sm transition placeholder:text-zinc-500 focus:border-brand-500 focus:outline-none focus:ring-4 focus:ring-brand-500/20;
+  }
+
+  html.light .field-input {
+    @apply border-[#cbd5e1] bg-white text-[#172b4d] placeholder:text-[#8795a5] focus:border-[#123b6d] focus:ring-[#d7e6f5];
+  }
+
+  html.light .field-label {
+    @apply text-[#52657a];
+  }
+
+  .field-hint {
+    @apply mt-1.5 text-xs leading-relaxed text-zinc-500;
+  }
+
+  .field-error {
+    @apply mt-1.5 flex items-center gap-1 text-xs font-medium text-red-400;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium;
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-widest text-zinc-500;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-white via-white to-zinc-400 bg-clip-text text-transparent;
+  }
+
+  html.light .text-gradient {
+    background-image: linear-gradient(to right, #172b4d, #172b4d, #52657a);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  .note-error {
+    @apply rounded-lg border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-300;
+  }
+
+  .note-warning {
+    @apply rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-300;
+  }
+
+  .note-success {
+    @apply rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-3 text-sm text-emerald-300;
+  }
+
+  .note-info {
+    @apply rounded-lg border border-sky-500/30 bg-sky-500/10 p-3 text-sm text-sky-300;
+  }
+
+  .kbd {
+    @apply rounded border border-zinc-700 bg-zinc-800/80 px-1.5 py-0.5 font-mono text-[11px] text-zinc-300;
+  }
+
+  html.light .kbd {
+    @apply border-[#d9e2ec] bg-[#f0f4f8] text-[#52657a];
+  }
+}
+
+/* Header (light): white / pale-blue text on the navy bar; hover #1E4F88,
+   active #0D2F57. Unlayered so it beats Tailwind's text-* utilities; the
+   :not([role=menu] …) guards keep the white account dropdown (DOM-nested
+   inside the header) on its own light styling. */
+html.light header.theme-surface-bar a:not([role="menu"] a),
+html.light nav.theme-surface-bar a {
+  color: #e8f1fa;
+}
+
+html.light header.theme-surface-bar a:not([role="menu"] a):hover,
+html.light nav.theme-surface-bar a:hover {
+  color: #ffffff;
+  background-color: #1e4f88;
+}
+
+html.light header.theme-surface-bar a[aria-current="page"]:not([role="menu"] a),
+html.light nav.theme-surface-bar a[aria-current="page"] {
+  color: #ffffff;
+  background-color: #0d2f57;
+}
+
+html.light header.theme-surface-bar .text-zinc-100:not([role="menu"] .text-zinc-100),
+html.light header.theme-surface-bar span.text-brand-400 {
+  color: #ffffff;
+}
+
+/* Theme toggle + account trigger on the navy bar: pale-blue icon, soft
+   hover chip; the account avatar keeps its white ring. */
+html.light header.theme-surface-bar button:not([role="menu"] button) {
+  color: #e8f1fa;
+}
+
+html.light header.theme-surface-bar button:not([role="menu"] button):hover {
+  background-color: #1e4f88;
+  color: #ffffff;
+}
+
+/* Logo tiles: .bg-grid's background-image overrides the gradient utility
+   (same property), leaving the tiles transparent. Re-declare the full
+   stack — grid lines on top of the brand gradient — using the themed
+   tokens so the tile is indigo in dark and deep navy in light. */
+.bg-grid.bg-gradient-to-br.from-brand-500 {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom right, var(--color-brand-500), var(--color-accent-600));
+}
+
+/* Header tile in light mode: white tile + navy mark for contrast against
+   the #123B6D bar. */
+html.light header.theme-surface-bar .bg-grid.bg-gradient-to-br.from-brand-500 {
+  background-image:
+    linear-gradient(to right, rgb(18 59 109 / 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(18 59 109 / 0.08) 1px, transparent 1px);
+  background-color: #ffffff;
+}
+
+html.light header.theme-surface-bar .bg-grid.bg-gradient-to-br.from-brand-500 svg {
+  color: #123b6d;
+}
+
+/* Loading skeleton: dark shimmer by default, light-gray shimmer in light mode. */
+.skeleton {
+  @apply animate-shimmer rounded-md bg-gradient-to-r from-zinc-800/80 via-zinc-700/60 to-zinc-800/80 bg-[length:200%_100%];
+}
+
+html.light .skeleton {
+  background-image: linear-gradient(90deg, #e1e8ef 0%, #f0f4f8 50%, #e1e8ef 100%);
+}
+
+/* Subtle shimmer for in-flight progress bars ------------------------------ */
+@keyframes progress-shimmer {
+  from {
+    background-position: 0% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+.progress-shimmer {
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: progress-shimmer 1.4s linear infinite;
+}
+
+/* Decorative grid for brand panels (login hero, empty states) ------------- */
+.bg-grid {
+  background-image: linear-gradient(
+      to right,
+      rgb(255 255 255 / 0.06) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+html.light .bg-grid {
+  background-image: linear-gradient(
+      to right,
+      rgb(18 59 109 / 0.07) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgb(18 59 109 / 0.07) 1px, transparent 1px);
+}
+
+/* Nav / sticky bars: translucent surface tint per theme. Light mode uses
+   the solid deep-navy header family (#123B6D) so the header stays visually
+   strong and identical on every page. */
+.theme-surface-bar {
+  background-color: rgb(10 11 16 / 0.7);
+}
+
+html.light .theme-surface-bar {
+  background-color: #123b6d;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-shimmer,
+  .animate-fade-up,
+  .animate-pulse-soft,
+  .progress-shimmer {
+    animation: none;
+  }
+}

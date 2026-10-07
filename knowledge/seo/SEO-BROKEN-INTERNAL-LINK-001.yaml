@@ -1,0 +1,29 @@
+rule_id: SEO-BROKEN-INTERNAL-LINK-001
+category: technical_seo
+severity: medium
+confidence: high
+source:
+  name: "Google Search Central — SEO link best practices for Google"
+  source_url: "https://developers.google.com/search/docs/crawling-indexing/links-crawlable"
+  authority: official_vendor_docs
+retrieved_at: "2026-09-09"
+content: >
+  Internal links are how both users and crawlers move through a site.
+  Google's link documentation frames links as a discovery and relevance
+  signal; a link that targets a URL the crawl itself observed returning a
+  4xx/5xx status wastes that signal, breaks user navigation, and dilutes
+  whatever link equity the source page intended to pass.
+conditions:
+  applies_to: website
+  evaluation: mechanical
+  check: broken_internal_link
+  note: >
+    Fires for a page's `links` entry where `internal` is true and `href`
+    (after normalization) matches another crawled page in the same run
+    whose `status_code` is >= 400, or which is present in
+    `crawl.failed_urls` on the crawl run's `stats_json`.
+    Infra paths such as `/cdn-cgi/` (Cloudflare email-protection and
+    related edge URLs) are not editorial links and must not fire.
+recommendation: >
+  Fix the link to point at the correct live URL, or remove it if the
+  target page has been intentionally retired without a replacement.

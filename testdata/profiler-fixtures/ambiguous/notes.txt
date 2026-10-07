@@ -1,0 +1,1 @@
+Some loose notes. No language or framework can be determined from manifests.

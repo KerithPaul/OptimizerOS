@@ -1,0 +1,31 @@
+rule_id: GEO-ENTITY-CLARITY-001
+category: geo
+severity: low
+confidence: low
+source:
+  name: "Google Search Central — Organization schema markup"
+  source_url: "https://developers.google.com/search/docs/appearance/structured-data/organization"
+  authority: official_vendor_docs
+retrieved_at: "2026-09-09"
+content: >
+  GEO ("entity clarity") is an ArchitectOS evaluation framework, not an
+  official ranking or citation formula published by any AI vendor. The
+  mechanism it operationalizes is real: Google's Organization schema
+  documents how a page identifies a specific, named organizational entity
+  in machine-readable form rather than only in prose. A page whose content
+  discusses a business, product, or organization but records zero
+  extracted entities and no Organization/Person-typed structured data
+  gives an AI system little to anchor an attribution to — it can quote the
+  text but has a harder time citing who or what it is about.
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: entity_markup_absent
+  note: >
+    Fires when `entities` is empty and no entry in `structured_data` has
+    `type` in {"Organization", "Person", "LocalBusiness"}, on a page whose
+    `word_count` is at least 250 (i.e. substantial enough to plausibly be
+    about a specific entity).
+recommendation: >
+  Add Organization (or Person/LocalBusiness, as applicable) structured
+  data naming the entity the page is about.

@@ -1,0 +1,25 @@
+rule_id: SEO-H1-MISSING-001
+category: technical_seo
+severity: low
+confidence: medium
+source:
+  name: "W3C WAI — Headings tutorial (page structure)"
+  source_url: "https://www.w3.org/WAI/tutorials/page-structure/headings/"
+  authority: official_standard
+retrieved_at: "2026-09-09"
+content: >
+  The W3C Web Accessibility Initiative's headings tutorial describes
+  headings as the primary way sighted and assistive-technology users alike
+  orient themselves in a page's structure; a page with no top-level (H1)
+  heading has no clearly marked entry point into that structure. Google
+  has stated H1 presence and uniqueness is not itself a ranking
+  requirement, so this is graded as a low-severity structural/accessibility
+  observation rather than a technical-SEO defect.
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: h1_missing
+  note: "Fires when `headings` contains no entry with level == 1."
+recommendation: >
+  Add a single, descriptive H1 heading that names the page's main topic,
+  placed before the page's other heading levels.

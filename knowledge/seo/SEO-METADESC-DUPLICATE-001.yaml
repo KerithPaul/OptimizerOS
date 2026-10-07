@@ -1,0 +1,26 @@
+rule_id: SEO-METADESC-DUPLICATE-001
+category: technical_seo
+severity: low
+confidence: medium
+source:
+  name: "Google Search Central — How to write meta descriptions"
+  source_url: "https://developers.google.com/search/docs/appearance/snippet"
+  authority: official_vendor_docs
+retrieved_at: "2026-09-09"
+content: >
+  Google's guidance says a good meta description is "short, unique to one
+  particular page, and includes the most relevant points of the page."
+  Identical meta descriptions across multiple crawled pages fail the
+  "unique to one particular page" criterion and usually indicate a
+  boilerplate/templating gap rather than deliberate copy.
+conditions:
+  applies_to: crawl_run
+  evaluation: mechanical
+  check: meta_description_duplicate_across_pages
+  note: >
+    Group all crawled pages by exact-match, case-insensitive
+    `meta_description` text; any group with more than one member and a
+    non-empty description fires this rule for every page in that group.
+recommendation: >
+  Write a distinct meta description per page that names what that page
+  specifically covers.

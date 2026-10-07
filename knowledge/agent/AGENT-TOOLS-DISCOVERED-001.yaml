@@ -1,0 +1,32 @@
+rule_id: AGENT-TOOLS-DISCOVERED-001
+category: agent_accessibility
+severity: low
+confidence: high
+source:
+  name: "W3C Web Machine Learning Community Group — WebMCP"
+  source_url: "https://webmachinelearning.github.io/webmcp"
+  authority: official_standard
+retrieved_at: "2026-09-23"
+content: >
+  The WebMCP draft (17 September 2026) lets a page register tools on
+  document.modelContext. Each tool has a name, a description, an input
+  schema, and optional annotations (readOnlyHint, untrustedContentHint,
+  consequentialHint). The same group's declarative API exposes a form
+  as a tool through the toolname and tooldescription attributes, with
+  an input schema synthesized from named form controls. A page that
+  registers none of these has no agent surface. That absence is not an
+  SEO, AEO, or GEO failure.
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: agent_tools_discovered
+  note: >
+    Fire once per page that has at least one detected WebMCP tool.
+    The observed value lists each tool's name, registration
+    (imperative or declarative), description, input schema,
+    semantic annotation, and structured response. Do not fire when
+    agent_tools is empty.
+recommendation: >
+  Review the listed tools and keep each name, description, input
+  schema, and annotation aligned with the action the page actually
+  performs. Do not add WebMCP solely to change an SEO score.

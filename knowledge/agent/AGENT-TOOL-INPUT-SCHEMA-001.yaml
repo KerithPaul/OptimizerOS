@@ -1,0 +1,25 @@
+rule_id: AGENT-TOOL-INPUT-SCHEMA-001
+category: agent_accessibility
+severity: medium
+confidence: high
+source:
+  name: "W3C Web Machine Learning Community Group — WebMCP"
+  source_url: "https://webmachinelearning.github.io/webmcp"
+  authority: official_standard
+retrieved_at: "2026-09-23"
+content: >
+  registerTool records an inputSchema, stringified as JSON Schema. A
+  declarative form synthesizes that schema from named form controls.
+  Without a schema, an agent has no structured inputs for the action.
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: agent_tool_input_schema_missing
+  note: >
+    Fire for each detected tool with no input schema. An imperative
+    inputSchema object or other non-null expression counts as present.
+    A declarative form counts as present when it has at least one named
+    form control. Fire on {page url}#{tool name}.
+recommendation: >
+  Provide an inputSchema on registerTool, or add named controls to the
+  declarative form, so the tool's inputs are structured.

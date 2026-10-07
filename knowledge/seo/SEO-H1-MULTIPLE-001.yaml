@@ -1,0 +1,28 @@
+rule_id: SEO-H1-MULTIPLE-001
+category: technical_seo
+severity: low
+confidence: low
+source:
+  name: "W3C WAI — Headings tutorial (page structure)"
+  source_url: "https://www.w3.org/WAI/tutorials/page-structure/headings/"
+  authority: official_standard
+retrieved_at: "2026-09-09"
+content: >
+  HTML5 permits multiple H1 elements (e.g. one per <section>/<article>),
+  and Google has said multiple H1s do not themselves cause a problem — but
+  the W3C's page-structure guidance still frames headings as forming one
+  navigable outline, and several unrelated top-level headings on one page
+  most often signals the page covers more than one topic or that a
+  component library is emitting an H1 per block without regard to
+  document structure. Confidence is deliberately low: this observation
+  needs a human (or LLM) read of whether the multiple H1s are structurally
+  sound before it becomes actionable.
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: h1_multiple
+  note: "Fires when `headings` contains more than one entry with level == 1."
+recommendation: >
+  Review whether the page genuinely covers multiple independent topics
+  (each reasonably meriting its own H1) or whether the headings should be
+  consolidated under one H1 with the rest demoted to H2 and below.

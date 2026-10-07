@@ -1,0 +1,295 @@
+{
+  "k": 8,
+  "spec_queries": [
+    "Where is product metadata generated?",
+    "Which component renders Product schema?",
+    "What controls canonical URLs?",
+    "Which routes use ProductMetadata?",
+    "Which SEO rule applies to this issue?"
+  ],
+  "queries": [
+    {
+      "id": "A-product-metadata-location",
+      "spec_query": "Where is product metadata generated?",
+      "query": "Where is product metadata generated?",
+      "project": "a-nextjs-ts-mysql",
+      "source_types": ["code"],
+      "ground_truth": "testdata/golden-projects/a-nextjs-ts-mysql/EXPECTED.md § Metadata",
+      "expected_evidence": [
+        {
+          "source_type": "code",
+          "file_path": "app/products/[slug]/page.tsx",
+          "symbol": "generateMetadata",
+          "must_contain": "generateMetadata"
+        }
+      ]
+    },
+    {
+      "id": "A-product-schema-component",
+      "spec_query": "Which component renders Product schema?",
+      "query": "Which component renders Product schema?",
+      "project": "a-nextjs-ts-mysql",
+      "source_types": ["code"],
+      "ground_truth": "testdata/golden-projects/a-nextjs-ts-mysql/EXPECTED.md § Schema",
+      "notes": "Product pages do not emit Product JSON-LD. The product component is ProductPage; no schema symbol exists.",
+      "expected_evidence": [
+        {
+          "source_type": "code",
+          "file_path": "app/products/[slug]/page.tsx",
+          "symbol": "ProductPage",
+          "must_contain": "ProductPage"
+        }
+      ]
+    },
+    {
+      "id": "A-canonical-controls",
+      "spec_query": "What controls canonical URLs?",
+      "query": "What controls canonical URLs?",
+      "project": "a-nextjs-ts-mysql",
+      "source_types": ["code"],
+      "ground_truth": "testdata/golden-projects/a-nextjs-ts-mysql/EXPECTED.md § Canonical",
+      "expected_evidence": [
+        {
+          "source_type": "code",
+          "file_path": "app/products/[slug]/page.tsx",
+          "symbol": "generateMetadata",
+          "must_contain": "generateMetadata"
+        },
+        {
+          "source_type": "code",
+          "file_path": "app/layout.tsx",
+          "symbol": "metadata",
+          "must_contain": "metadata"
+        }
+      ]
+    },
+    {
+      "id": "A-routes-product-metadata",
+      "spec_query": "Which routes use ProductMetadata?",
+      "query": "Which routes use ProductMetadata?",
+      "project": "a-nextjs-ts-mysql",
+      "source_types": ["code"],
+      "ground_truth": "testdata/golden-projects/a-nextjs-ts-mysql/EXPECTED.md § Notes",
+      "notes": "Golden A has no symbol named ProductMetadata. The metadata function is generateMetadata; ProductPage GENERATES_METADATA it and ROUTES_TO /products/[slug].",
+      "expected_evidence": [
+        {
+          "source_type": "code",
+          "file_path": "app/products/[slug]/page.tsx",
+          "symbol": "generateMetadata",
+          "must_contain": "generateMetadata"
+        },
+        {
+          "source_type": "code",
+          "file_path": "app/products/[slug]/page.tsx",
+          "symbol": "ProductPage",
+          "must_contain": "ProductPage"
+        },
+        {
+          "source_type": "code",
+          "symbol": "/products/[slug]",
+          "must_contain": "/products/[slug]"
+        }
+      ]
+    },
+    {
+      "id": "A-rule-missing-canonical",
+      "spec_query": "Which SEO rule applies to this issue?",
+      "query": "Which SEO rule applies to a missing canonical URL on an indexable page?",
+      "issue": "No page sets a canonical URL (alternates.canonical is absent on the layout and on the product page).",
+      "project": "a-nextjs-ts-mysql",
+      "source_types": ["knowledge"],
+      "ground_truth": "testdata/golden-projects/a-nextjs-ts-mysql/EXPECTED.md § Canonical + knowledge/seo/SEO-CANONICAL-001.yaml",
+      "expected_evidence": [
+        {
+          "source_type": "knowledge",
+          "rule_id": "SEO-CANONICAL-001",
+          "must_contain": "canonical"
+        }
+      ]
+    },
+    {
+      "id": "A-rule-missing-product-schema",
+      "spec_query": "Which SEO rule applies to this issue?",
+      "query": "Which SEO rule applies to a product page with no JSON-LD structured data?",
+      "issue": "Product pages do not emit Product JSON-LD or any other Schema.org block.",
+      "project": "a-nextjs-ts-mysql",
+      "source_types": ["knowledge"],
+      "ground_truth": "testdata/golden-projects/a-nextjs-ts-mysql/EXPECTED.md § Schema + knowledge/seo/SEO-STRUCTUREDDATA-MISSING-001.yaml",
+      "expected_evidence": [
+        {
+          "source_type": "knowledge",
+          "rule_id": "SEO-STRUCTUREDDATA-MISSING-001",
+          "must_contain": "structured data"
+        }
+      ]
+    },
+    {
+      "id": "A-rule-duplicate-title",
+      "spec_query": "Which SEO rule applies to this issue?",
+      "query": "Which SEO rule applies to two pages that share the same title?",
+      "issue": "app/layout.tsx and app/about/page.tsx both set title to Golden A.",
+      "project": "a-nextjs-ts-mysql",
+      "source_types": ["knowledge"],
+      "ground_truth": "testdata/golden-projects/a-nextjs-ts-mysql/EXPECTED.md § Metadata + knowledge/seo/SEO-TITLE-DUPLICATE-001.yaml",
+      "expected_evidence": [
+        {
+          "source_type": "knowledge",
+          "rule_id": "SEO-TITLE-DUPLICATE-001",
+          "must_contain": "title"
+        }
+      ]
+    },
+    {
+      "id": "B-canonical-controls",
+      "spec_query": "What controls canonical URLs?",
+      "query": "What controls canonical URLs?",
+      "project": "b-react-fastapi",
+      "source_types": ["code"],
+      "ground_truth": "testdata/golden-projects/b-react-fastapi/EXPECTED.md § Canonical",
+      "expected_evidence": [
+        {
+          "source_type": "code",
+          "file_path": "frontend/index.html",
+          "must_contain": "Golden B"
+        },
+        {
+          "source_type": "code",
+          "file_path": "backend/app.py",
+          "must_contain": "Golden B"
+        }
+      ]
+    },
+    {
+      "id": "B-rule-missing-description",
+      "spec_query": "Which SEO rule applies to this issue?",
+      "query": "Which SEO rule applies to a page with no meta description?",
+      "issue": "frontend/index.html has a title but no meta name=description.",
+      "project": "b-react-fastapi",
+      "source_types": ["knowledge"],
+      "ground_truth": "testdata/golden-projects/b-react-fastapi/EXPECTED.md § Metadata + knowledge/seo/SEO-METADESC-MISSING-001.yaml",
+      "expected_evidence": [
+        {
+          "source_type": "knowledge",
+          "rule_id": "SEO-METADESC-MISSING-001",
+          "must_contain": "description"
+        }
+      ]
+    },
+    {
+      "id": "E-canonical-controls",
+      "spec_query": "What controls canonical URLs?",
+      "query": "What controls canonical URLs?",
+      "project": "e-static-html",
+      "source_types": ["page"],
+      "ground_truth": "testdata/golden-projects/e-static-html/EXPECTED.md § Missing canonical",
+      "expected_evidence": [
+        {
+          "source_type": "page",
+          "url": "https://golden-e.example/about.html",
+          "must_contain": "Golden E"
+        },
+        {
+          "source_type": "page",
+          "url": "https://golden-e.example/products.html",
+          "must_contain": "Products"
+        }
+      ]
+    },
+    {
+      "id": "E-rule-missing-canonical",
+      "spec_query": "Which SEO rule applies to this issue?",
+      "query": "Which SEO rule applies to a missing canonical URL on an indexable page?",
+      "issue": "about.html and products.html have no canonical link.",
+      "project": "e-static-html",
+      "source_types": ["knowledge"],
+      "ground_truth": "testdata/golden-projects/e-static-html/EXPECTED.md § Missing canonical + knowledge/seo/SEO-CANONICAL-001.yaml",
+      "expected_evidence": [
+        {
+          "source_type": "knowledge",
+          "rule_id": "SEO-CANONICAL-001",
+          "must_contain": "canonical"
+        }
+      ]
+    },
+    {
+      "id": "E-rule-missing-alt",
+      "spec_query": "Which SEO rule applies to this issue?",
+      "query": "Which SEO rule applies to an image with no alt attribute?",
+      "issue": "products.html contains widget.png with no alt attribute.",
+      "project": "e-static-html",
+      "source_types": ["knowledge"],
+      "ground_truth": "testdata/golden-projects/e-static-html/EXPECTED.md § Missing alt + knowledge/seo/SEO-IMAGE-ALT-001.yaml",
+      "expected_evidence": [
+        {
+          "source_type": "knowledge",
+          "rule_id": "SEO-IMAGE-ALT-001",
+          "must_contain": "alt"
+        }
+      ]
+    },
+    {
+      "id": "E-rule-heading-skip",
+      "spec_query": "Which SEO rule applies to this issue?",
+      "query": "Which SEO rule applies to a heading hierarchy that skips a level?",
+      "issue": "about.html has h1 then h3 with no h2.",
+      "project": "e-static-html",
+      "source_types": ["knowledge"],
+      "ground_truth": "testdata/golden-projects/e-static-html/EXPECTED.md § Heading skip + knowledge/seo/SEO-HEADING-SKIP-001.yaml",
+      "expected_evidence": [
+        {
+          "source_type": "knowledge",
+          "rule_id": "SEO-HEADING-SKIP-001",
+          "must_contain": "heading"
+        }
+      ]
+    },
+    {
+      "id": "E-rule-invalid-jsonld",
+      "spec_query": "Which SEO rule applies to this issue?",
+      "query": "Which SEO rule applies to malformed JSON-LD structured data?",
+      "issue": "contact.html contains application/ld+json that is not valid JSON.",
+      "project": "e-static-html",
+      "source_types": ["knowledge"],
+      "ground_truth": "testdata/golden-projects/e-static-html/EXPECTED.md § Malformed JSON-LD + knowledge/seo/SEO-STRUCTUREDDATA-INVALID-001.yaml",
+      "expected_evidence": [
+        {
+          "source_type": "knowledge",
+          "rule_id": "SEO-STRUCTUREDDATA-INVALID-001",
+          "must_contain": "JSON-LD"
+        }
+      ]
+    },
+    {
+      "id": "E-rule-orphan-page",
+      "spec_query": "Which SEO rule applies to this issue?",
+      "query": "Which SEO rule applies to a page with no inbound internal links?",
+      "issue": "orphan.html is not linked from the other fixture pages.",
+      "project": "e-static-html",
+      "source_types": ["knowledge"],
+      "ground_truth": "testdata/golden-projects/e-static-html/EXPECTED.md § Orphan page + knowledge/seo/SEO-ORPHAN-PAGE-001.yaml",
+      "expected_evidence": [
+        {
+          "source_type": "knowledge",
+          "rule_id": "SEO-ORPHAN-PAGE-001",
+          "must_contain": "orphan"
+        }
+      ]
+    },
+    {
+      "id": "E-rule-duplicate-title",
+      "spec_query": "Which SEO rule applies to this issue?",
+      "query": "Which SEO rule applies to two pages that share the same title?",
+      "issue": "index.html and about.html both have title Golden E.",
+      "project": "e-static-html",
+      "source_types": ["knowledge"],
+      "ground_truth": "testdata/golden-projects/e-static-html/EXPECTED.md § Duplicate titles + knowledge/seo/SEO-TITLE-DUPLICATE-001.yaml",
+      "expected_evidence": [
+        {
+          "source_type": "knowledge",
+          "rule_id": "SEO-TITLE-DUPLICATE-001",
+          "must_contain": "title"
+        }
+      ]
+    }
+  ]
+}

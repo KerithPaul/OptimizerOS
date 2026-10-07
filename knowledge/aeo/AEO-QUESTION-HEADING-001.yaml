@@ -1,0 +1,30 @@
+rule_id: AEO-QUESTION-HEADING-001
+category: aeo
+severity: low
+confidence: medium
+source:
+  name: "schema.org — QAPage"
+  source_url: "https://schema.org/QAPage"
+  authority: official_standard
+retrieved_at: "2026-09-09"
+content: >
+  Answer-engine optimization is an ArchitectOS-defined evaluation category
+  (see the GEO rules for the explicit disclosure this framework requires),
+  not an official Google ranking system, but the underlying mechanism it
+  measures here is real and standards-backed: schema.org's Q&A types model
+  content as an explicit question paired with its answer. A page with no
+  question-form headings (e.g. "How do I ...?", "What is ...?") anywhere
+  in its structure gives neither a classic search engine's featured-
+  snippet extraction nor an AI answer engine's passage-retrieval an
+  obvious question/answer pair to lift.
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: no_question_headings
+  note: >
+    Fires when no entry in `headings` (level 2 or deeper) has text ending
+    in "?", and `questions` is also empty.
+recommendation: >
+  Where the page content already answers a question users commonly ask
+  (product FAQs, how-to steps, definitions), phrase the relevant heading
+  as that question rather than a generic label.

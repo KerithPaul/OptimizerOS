@@ -1,0 +1,28 @@
+rule_id: SEO-NOINDEX-UNEXPECTED-001
+category: technical_seo
+severity: critical
+confidence: high
+source:
+  name: "Google Search Central — Block search indexing with noindex"
+  source_url: "https://developers.google.com/search/docs/crawling-indexing/block-indexing"
+  authority: official_vendor_docs
+retrieved_at: "2026-09-09"
+content: >
+  Google's documentation is direct: a noindex value in the robots meta tag
+  or the equivalent X-Robots-Tag HTTP header "prevents the page from being
+  included in the index." A page that the site itself lists in its
+  sitemap — a positive signal that the owner wants it indexed — but which
+  also carries noindex is contradicting itself, and is the single most
+  common way a page silently disappears from search results without
+  anyone noticing until traffic drops.
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: noindex_on_sitemap_page
+  note: >
+    Fires when `sitemap_member` is true and either `robots.meta` or
+    `robots.x_robots_tag` contains the token "noindex" (case-insensitive).
+recommendation: >
+  Confirm whether noindex is intentional. If the page should be indexed,
+  remove the noindex directive. If it should not be, remove it from the
+  sitemap so the two signals stop contradicting each other.

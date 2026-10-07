@@ -1,0 +1,30 @@
+rule_id: SEO-HREFLANG-NOT-RECIPROCAL-001
+category: technical_seo
+severity: medium
+confidence: medium
+source:
+  name: "Google Search Central — Tell Google about localized versions of your page"
+  source_url: "https://developers.google.com/search/docs/specialty/international/localized-versions"
+  authority: official_vendor_docs
+retrieved_at: "2026-09-09"
+content: >
+  Google's hreflang documentation requires reciprocity: "each language
+  version must list itself as well as all other language versions." A
+  one-directional hreflang link — page A points to page B as its
+  alternate, but B does not point back to A — is explicitly called out by
+  Google as a broken configuration it may ignore entirely, silently
+  dropping the annotation for both pages rather than partially applying
+  it.
+conditions:
+  applies_to: website
+  evaluation: mechanical
+  check: hreflang_not_reciprocal
+  note: >
+    For each `hreflang` entry `{lang, href}` on a crawled page, fires if
+    the page at `href` (when it is also part of this crawl) does not carry
+    a reciprocal `hreflang` entry pointing back at the originating page's
+    URL.
+recommendation: >
+  Add the missing reciprocal <link rel="alternate" hreflang="..."> entry on
+  the target page so every language version in the set lists itself and
+  every other version.

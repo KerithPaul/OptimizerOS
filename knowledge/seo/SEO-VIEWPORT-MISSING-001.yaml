@@ -1,0 +1,27 @@
+rule_id: SEO-VIEWPORT-MISSING-001
+category: technical_seo
+severity: medium
+confidence: high
+source:
+  name: "Google Search Central — Mobile-first indexing best practices"
+  source_url: "https://developers.google.com/search/docs/crawling-indexing/mobile/mobile-sites-mobile-first-indexing"
+  authority: official_vendor_docs
+retrieved_at: "2026-09-09"
+content: >
+  Google indexes the mobile version of a page by default (mobile-first
+  indexing) and documents the viewport meta element as a key action for
+  mobile-friendly pages, giving the canonical example
+  `<meta name="viewport" content="width=device-width, initial-scale=1">`.
+  A page with no viewport meta tag renders at a fixed desktop-width
+  layout on mobile browsers, forcing users to pinch-zoom and scroll
+  horizontally — a page-experience defect on the exact rendering path
+  Google now indexes from.
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: viewport_missing
+  field: viewport
+  operator: is_null
+recommendation: >
+  Add a viewport meta tag with content="width=device-width,
+  initial-scale=1" inside the page's <head>.

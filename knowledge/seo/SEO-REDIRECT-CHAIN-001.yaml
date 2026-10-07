@@ -1,0 +1,26 @@
+rule_id: SEO-REDIRECT-CHAIN-001
+category: technical_seo
+severity: low
+confidence: high
+source:
+  name: "Google Search Central — Redirects and Google Search"
+  source_url: "https://developers.google.com/search/docs/crawling-indexing/301-redirects"
+  authority: official_vendor_docs
+retrieved_at: "2026-09-09"
+content: >
+  Google's redirects documentation frames a permanent server-side redirect
+  as "the best way to ensure that Google Search and people are directed to
+  the correct page" — implicitly a single hop. Each additional hop in a
+  redirect chain adds latency for users, adds a crawl request Google must
+  spend budget on, and adds a point where a link can silently break (a
+  chain that ends in a non-2xx status wastes the whole chain).
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: redirect_chain_multi_hop
+  field: redirect_chain
+  operator: count_gt
+  value: 1
+recommendation: >
+  Update the original link/redirect rule to point directly at the final
+  destination URL, collapsing the chain to a single hop.

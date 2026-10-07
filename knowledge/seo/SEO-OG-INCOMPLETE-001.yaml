@@ -1,0 +1,26 @@
+rule_id: SEO-OG-INCOMPLETE-001
+category: technical_seo
+severity: low
+confidence: high
+source:
+  name: "The Open Graph protocol"
+  source_url: "https://ogp.me/"
+  authority: official_standard
+retrieved_at: "2026-09-09"
+content: >
+  The Open Graph protocol specification names four required properties for
+  every page to become "a rich object in a social graph": og:title,
+  og:type, og:image, and og:url. A page missing one or more of these has
+  incomplete Open Graph markup, which most link-preview consumers
+  (chat apps, social platforms) either render with missing pieces or
+  refuse to render richly at all.
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: open_graph_incomplete
+  note: >
+    Fires when `open_graph` is non-empty (the page attempted OG markup)
+    but is missing one or more of the keys "title", "type", "image", "url".
+recommendation: >
+  Add the missing og:title / og:type / og:image / og:url meta tags so link
+  previews render with complete information.

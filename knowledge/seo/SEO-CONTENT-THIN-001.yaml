@@ -1,0 +1,29 @@
+rule_id: SEO-CONTENT-THIN-001
+category: content_seo
+severity: medium
+confidence: medium
+source:
+  name: "Google Search Central — Creating helpful, reliable, people-first content"
+  source_url: "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+  authority: official_vendor_docs
+retrieved_at: "2026-09-09"
+content: >
+  Google's helpful-content guidance asks whether, "after reading your
+  content, will someone leave feeling they've learned enough about a topic
+  to help achieve their goal?" — word count itself is not a Google ranking
+  metric, and Google does not publish a minimum. A very low visible word
+  count is used here only as a mechanical, cheap-to-compute proxy for
+  pages unlikely to satisfy that bar; confidence is medium because the
+  proxy has real false positives (a page whose real content is images,
+  video, or a genuinely simple utility).
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: content_thin
+  field: word_count
+  operator: lt
+  value: 250
+recommendation: >
+  Review whether the page's low word count reflects genuinely thin content
+  needing expansion, or a page type (tool, gallery, contact page) where a
+  low word count is expected and not a problem.

@@ -1,0 +1,36 @@
+rule_id: SEO-KEYWORD-FOCUS-001
+category: content_seo
+severity: low
+confidence: low
+source:
+  name: "Google Search Central — Creating helpful, reliable, people-first content"
+  source_url: "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+  authority: official_vendor_docs
+retrieved_at: "2026-09-23"
+content: >
+  Google does not use a meta keywords field and does not publish target
+  keyword lists; its helpful-content guidance asks whether the page's words
+  match the terms real searchers would use. This rule therefore does not
+  claim to know a page's "correct" keywords — no tool can, mechanically.
+  What it does is cheap and useful: extract the terms the page itself uses
+  most (dominant unigrams and bigrams of the visible content) and flag the
+  case where a dominant term appears in neither the title nor the meta
+  description. When a page is emphatically about something the crawlable
+  summary fields never mention, snippet and query matching are less likely
+  to surface it. Confidence is low by design: frequency is a proxy, and the
+  dominant term may legitimately belong in body copy only.
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: keyword_focus
+  note: >
+    Fires when the page has >= 250 visible words, at least one dominant
+    term extracted from visible content, and one or more dominant terms
+    missing from both the title and the meta description. Observed value
+    lists the dominant terms and which are missing, so the recommendation
+    can name the actual keywords.
+recommendation: >
+  Consider naming the page's dominant terms in the title or meta
+  description where they genuinely describe the page — not by stuffing
+  every term in, but by picking the one or two dominant terms a searcher
+  would actually type and working them naturally into the title tag.

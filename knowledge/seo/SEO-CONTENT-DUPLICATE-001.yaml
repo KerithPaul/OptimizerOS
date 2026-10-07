@@ -1,0 +1,29 @@
+rule_id: SEO-CONTENT-DUPLICATE-001
+category: content_seo
+severity: medium
+confidence: high
+source:
+  name: "Google Search Central — What is URL canonicalization"
+  source_url: "https://developers.google.com/search/docs/crawling-indexing/canonicalization"
+  authority: official_vendor_docs
+retrieved_at: "2026-09-09"
+content: >
+  Google describes canonicalization as choosing a representative URL for a
+  set of pages whose content is otherwise a match, "often called
+  deduplication." Two crawled pages with an identical raw HTML hash are, by
+  definition, exact duplicates of each other's markup — the strongest,
+  cheapest-to-compute signal this rule set can raise for the "duplication"
+  content-SEO check named in the Phase 4 catalog; it does not attempt
+  near-duplicate (similar-but-not-identical) detection.
+conditions:
+  applies_to: website
+  evaluation: mechanical
+  check: exact_duplicate_content
+  note: >
+    Fires for a page whose `raw_html_hash` matches another crawled page's
+    `raw_html_hash` in the same run, and whose `url` differs and is not
+    already declared as a canonical alternate of the other via `canonical`.
+recommendation: >
+  Consolidate the duplicate pages with a canonical tag or a redirect (see
+  SEO-CANONICAL-001), or differentiate their content if both are meant to
+  stand independently.

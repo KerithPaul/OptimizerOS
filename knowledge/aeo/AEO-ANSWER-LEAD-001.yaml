@@ -1,0 +1,36 @@
+rule_id: AEO-ANSWER-LEAD-001
+category: aeo
+severity: low
+confidence: low
+source:
+  name: "Google Search Central — Featured snippets and your website"
+  source_url: "https://developers.google.com/search/docs/appearance/featured-snippets"
+  authority: official_vendor_docs
+retrieved_at: "2026-09-09"
+content: >
+  Google is explicit that "there's no markup needed by webmasters to
+  enable a featured snippet" and that snippets are "chosen by entirely
+  programmatic means" — no site owner can request or guarantee one. This
+  rule does not claim otherwise. What it checks is a narrower, ArchitectOS
+  operationalization of AEO best practice: when a page already has a
+  question-form heading (see AEO-QUESTION-HEADING-001) with a recorded
+  answer, an answer that is missing entirely, or so long it buries the
+  direct response in surrounding text, is less useful to any extractive
+  answer surface — Google's featured snippets included, by Google's own
+  description of favoring pages "based on how well they answer your
+  question and how helpful they are" — even though no markup or length
+  guarantees the result. Confidence is low because "how well" is
+  ultimately Google's judgment, not a rule ArchitectOS can verify.
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: answer_lead_missing_or_verbose
+  note: >
+    For each entry in `questions` with non-null `text`, fires if `answer`
+    is null, or if `answer`'s word count is outside roughly 40-80 words
+    (an ArchitectOS heuristic band for a concise direct-answer lead, not a
+    Google-published threshold).
+recommendation: >
+  Immediately follow each question heading with a concise, self-contained
+  answer (roughly 40-80 words) before any supporting detail, so the
+  direct answer is easy to extract on its own.

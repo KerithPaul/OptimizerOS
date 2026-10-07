@@ -1,0 +1,28 @@
+rule_id: SEO-STRUCTUREDDATA-MISSING-001
+category: technical_seo
+severity: low
+confidence: low
+source:
+  name: "Google Search Central — Intro to how structured data markup works"
+  source_url: "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"
+  authority: official_vendor_docs
+retrieved_at: "2026-09-09"
+content: >
+  Google documents structured data (it recommends the JSON-LD format) as
+  the mechanism by which a page becomes eligible for rich results and lets
+  Google (and, per the ArchitectOS GEO framework, other AI answer
+  engines — see the GEO rules) understand a page's content unambiguously.
+  Its complete absence is not an error — most pages rank without any
+  structured data — so this fires at low severity and low confidence as an
+  opportunity flag, not a defect; whether markup is actually applicable
+  depends on the page's content type, which this mechanical check does not
+  evaluate.
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: structured_data_absent
+  note: "Fires when `structured_data` is an empty list."
+recommendation: >
+  Evaluate whether a schema.org type (Article, Product, Organization, FAQ,
+  breadcrumb, etc.) genuinely fits this page's content, and add JSON-LD
+  markup for it if so.

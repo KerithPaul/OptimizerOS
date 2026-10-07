@@ -1,0 +1,4 @@
+# Golden E
+
+This is a fixture llms.txt for ArchitectOS website-intelligence tests.
+It is not a live site policy.

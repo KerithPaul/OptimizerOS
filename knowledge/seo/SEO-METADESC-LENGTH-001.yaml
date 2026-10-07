@@ -1,0 +1,29 @@
+rule_id: SEO-METADESC-LENGTH-001
+category: technical_seo
+severity: low
+confidence: medium
+source:
+  name: "Google Search Central — How to write meta descriptions"
+  source_url: "https://developers.google.com/search/docs/appearance/snippet"
+  authority: official_vendor_docs
+retrieved_at: "2026-09-18"
+content: >
+  Google's snippet documentation does not publish a fixed character limit
+  for meta descriptions; snippets are truncated to fit the results page.
+  Descriptions that run well past a typical SERP snippet width are likely
+  to be cut, so the useful unique phrasing at the end never appears. The
+  ~160-character threshold this rule checks is an ArchitectOS practical
+  proxy used by site-audit tools for "likely truncated in a SERP", not a
+  value Google itself publishes; treat a flagged page as a candidate for a
+  tighter description, not as a confirmed truncation.
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: meta_description_too_long
+  field: meta_description
+  operator: length_gt
+  value: 160
+recommendation: >
+  Shorten the meta description so the unique value of the page is in the
+  first ~160 characters — put the most important clause first, since
+  truncation (when it happens) cuts from the end.

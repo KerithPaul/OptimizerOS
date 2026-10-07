@@ -1,0 +1,28 @@
+rule_id: SEO-TITLE-DUPLICATE-001
+category: technical_seo
+severity: medium
+confidence: high
+source:
+  name: "Google Search Central — Influencing title links in Google Search"
+  source_url: "https://developers.google.com/search/docs/appearance/title-link"
+  authority: official_vendor_docs
+retrieved_at: "2026-09-09"
+content: >
+  Google's title-link guidance calls for "descriptive and concise text" per
+  page and warns against boilerplate that makes titles indistinguishable.
+  Two or more crawled pages sharing the exact same <title> text signals
+  either a templating bug or genuinely duplicate/near-duplicate pages —
+  both reduce a searcher's ability to tell pages apart in results and
+  weaken the page-specific relevance signal the title provides.
+conditions:
+  applies_to: crawl_run
+  evaluation: mechanical
+  check: title_duplicate_across_pages
+  note: >
+    Group all crawled pages in the run by exact-match, case-insensitive
+    `title` text; any group with more than one member and a non-empty
+    title fires this rule for every page in that group.
+recommendation: >
+  Give each page a unique, descriptive <title> that reflects what makes
+  that specific page's content different from the others sharing the
+  duplicate title.

@@ -1,0 +1,29 @@
+rule_id: SEO-TITLE-LENGTH-001
+category: technical_seo
+severity: low
+confidence: medium
+source:
+  name: "Google Search Central — Influencing title links in Google Search"
+  source_url: "https://developers.google.com/search/docs/appearance/title-link"
+  authority: official_vendor_docs
+retrieved_at: "2026-09-09"
+content: >
+  Google's documentation advises against "unnecessarily long or verbose
+  text" in <title> elements and notes Google Search will sometimes shorten
+  a title link so it displays well, without giving a fixed character count
+  — truncation is driven by rendered pixel width, not a character limit.
+  The ~60-character threshold this rule checks is an ArchitectOS practical
+  proxy for "likely to be truncated in a SERP", not a value Google itself
+  publishes; treat a flagged page as a candidate for a tighter title, not
+  as a confirmed truncation.
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: title_length_likely_truncated
+  field: title
+  operator: length_gt
+  value: 60
+recommendation: >
+  Shorten the title to the essential, unique description of the page's
+  content — put the most important words first, since truncation (when it
+  happens) cuts from the end.

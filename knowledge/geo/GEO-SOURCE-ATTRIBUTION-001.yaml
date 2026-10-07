@@ -1,0 +1,30 @@
+rule_id: GEO-SOURCE-ATTRIBUTION-001
+category: geo
+severity: low
+confidence: low
+source:
+  name: "Google Search Central — Creating helpful, reliable, people-first content"
+  source_url: "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+  authority: official_vendor_docs
+retrieved_at: "2026-09-09"
+content: >
+  GEO ("citation readiness" / "source attribution") is an ArchitectOS
+  evaluation framework, not an official formula from Google, OpenAI, or
+  Anthropic. It operationalizes a trust idea Google's own content
+  guidance raises in a different context — demonstrating "first-hand
+  expertise" and reliability — into a checkable, narrower proxy for how
+  citable a page's factual claims are to an AI answer engine: substantial
+  content with zero outbound references to any external source is harder
+  for a retrieval system to corroborate than content that names where its
+  claims come from.
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: no_external_references
+  note: >
+    Fires when `word_count` is at least 400 and no entry in `links` has
+    `internal` equal to false.
+recommendation: >
+  Where the page makes factual or statistical claims, link to the primary
+  source (a study, official documentation, a dataset) rather than leaving
+  the claim unattributed.

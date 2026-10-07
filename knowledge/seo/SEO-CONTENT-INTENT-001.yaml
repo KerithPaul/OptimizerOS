@@ -1,0 +1,30 @@
+rule_id: SEO-CONTENT-INTENT-001
+category: content_seo
+severity: medium
+confidence: low
+source:
+  name: "Google Search Central — Creating helpful, reliable, people-first content"
+  source_url: "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+  authority: official_vendor_docs
+retrieved_at: "2026-09-09"
+content: >
+  Google's self-assessment questions for people-first content ask whether
+  a page has "an existing or intended audience ... that would find the
+  content useful" and whether it demonstrates "first-hand expertise and a
+  depth of knowledge" on its subject. Whether a page's body actually
+  satisfies the intent implied by its own title and headings is not a
+  mechanical check — it requires reading and judging the content, which is
+  exactly the class of rule step 4.B.1 allows to carry its identity,
+  conditions, and severity now while its evaluation happens later, with an
+  LLM, in Phase 6.
+conditions:
+  applies_to: page
+  evaluation: llm_interpreted
+  check: content_intent_alignment
+  note: >
+    Given a page's `title`, `headings`, and `content`, judge whether the
+    body substantively addresses the topic/question the title and H1
+    imply, rather than only mentioning it in passing.
+recommendation: >
+  Rework the page body so it directly and substantively addresses the
+  topic promised by its own title and headings.

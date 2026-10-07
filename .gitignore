@@ -1,0 +1,100 @@
+# ── Secrets (keep templates) ──────────────────────────────────────
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+credentials.json
+service-account*.json
+frontent1
+frontend2
+docs
+# ── Python ────────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+pip-wheel-metadata/
+.python-version
+.uv/
+uv-cache/
+
+# ── Tests / coverage / linters ────────────────────────────────────
+.pytest_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.tox/
+.nox/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.cache/
+
+# ── Node / Next.js ────────────────────────────────────────────────
+node_modules/
+.next/
+out/
+.turbo/
+.vercel/
+*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# ── Runtime data (not source) ─────────────────────────────────────
+workspaces/
+logs/
+backend/site_report_schedule.yaml
+backend/site_report_schedule.state.json
+*.log
+*.sqlite
+*.sqlite3
+*.db
+dump.rdb
+
+# ── Local models / HF / Playwright / Lighthouse ───────────────────
+.huggingface/
+huggingface/
+sentence_transformers/
+playwright-report/
+test-results/
+blob-report/
+lighthouse-reports/
+*.har
+
+# ── OS ────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ── Editors / local tooling ───────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.claude/
+.cursor/
+.codex/
+.grok/
+.code-review-graph/
+graphify-out/
+
+# ── Local planning notes (not product source) ─────────────────────
+ClearSite-for-ArchitectOS.md
+IMPLEMENTATION_PLAN_V2.md
+IMPLEMENTATION_PLAN.md
+AGENTS.md
+about-ArchitectOS.md

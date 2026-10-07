@@ -1,0 +1,30 @@
+rule_id: GEO-STRUCTURED-DENSITY-001
+category: geo
+severity: low
+confidence: low
+source:
+  name: "Google Search Central — Intro to how structured data markup works"
+  source_url: "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"
+  authority: official_vendor_docs
+retrieved_at: "2026-09-09"
+content: >
+  GEO ("structured information") is an ArchitectOS evaluation framework,
+  not an official ranking or retrieval formula from any AI vendor — it is
+  a hypothesis, not a proven mechanism, that pages carrying more
+  machine-readable structure are easier for an AI system to extract facts
+  from than prose alone. Google documents structured data as a way to
+  describe a page's content "in a way search engines can understand"; this
+  rule extends that documented mechanism into a low-confidence density
+  proxy: a long page with no structured data blocks at all offers a
+  retrieval system nothing but raw prose to parse.
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: structured_data_density_low
+  note: >
+    Fires when `word_count` is at least 800 and `structured_data` is an
+    empty list.
+recommendation: >
+  Add structured data appropriate to the content (Article, Product, HowTo,
+  Dataset, etc.) so machine consumers have a structured summary alongside
+  the prose.

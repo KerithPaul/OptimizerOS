@@ -1,0 +1,27 @@
+rule_id: SEO-SITEMAP-COVERAGE-GAP-001
+category: technical_seo
+severity: low
+confidence: medium
+source:
+  name: "Google Search Central — Build and submit a sitemap"
+  source_url: "https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap"
+  authority: official_vendor_docs
+retrieved_at: "2026-09-09"
+content: >
+  A sitemap's purpose, per Google's documentation, is to help search
+  engines discover and understand the relative priority of a site's URLs.
+  A page the crawler reached through the site's own internal links but
+  which is absent from the sitemap is a real, indexable page the sitemap
+  is failing to surface — a coverage gap that most often means the
+  sitemap generator runs out of sync with the actual site.
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: crawled_but_not_in_sitemap
+  field: sitemap_member
+  operator: equals
+  value: false
+recommendation: >
+  Add this URL to the sitemap (or regenerate the sitemap from the site's
+  current routes) so it stays in sync with what a crawler can actually
+  reach.

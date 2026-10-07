@@ -1,0 +1,29 @@
+rule_id: SEO-ROBOTS-UNAVAILABLE-001
+category: technical_seo
+severity: low
+confidence: high
+source:
+  name: "RFC 9309 — Robots Exclusion Protocol"
+  source_url: "https://www.rfc-editor.org/rfc/rfc9309"
+  authority: official_standard
+retrieved_at: "2026-09-09"
+content: >
+  RFC 9309 standardizes robots.txt as the mechanism crawlers use to learn
+  which parts of a site they may access. It is advisory on the open web —
+  Google's own robots.txt introduction notes it "is not a mechanism for
+  keeping a web page out of Google" — but ArchitectOS treats it as
+  mandatory to respect when present. A site whose robots.txt could not be
+  fetched at all (as opposed to a 404, which most crawlers correctly treat
+  as "no restrictions") is a recorded crawl state, not an error: the
+  crawler cannot distinguish "no rules" from "rules we couldn't read".
+conditions:
+  applies_to: crawl_run
+  evaluation: mechanical
+  check: robots_txt_unavailable
+  field: stats_json.crawl.robots.state
+  operator: equals
+  value: unavailable
+recommendation: >
+  Verify robots.txt is reachable over HTTP(S) at the site root without
+  requiring authentication, redirects to another host, or blocking the
+  crawler's user agent.

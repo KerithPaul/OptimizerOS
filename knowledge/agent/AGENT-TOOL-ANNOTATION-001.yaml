@@ -1,0 +1,28 @@
+rule_id: AGENT-TOOL-ANNOTATION-001
+category: agent_accessibility
+severity: low
+confidence: high
+source:
+  name: "W3C Web Machine Learning Community Group — WebMCP"
+  source_url: "https://webmachinelearning.github.io/webmcp"
+  authority: official_standard
+retrieved_at: "2026-09-23"
+content: >
+  Tool annotations carry readOnlyHint, untrustedContentHint, and
+  consequentialHint. The draft allows the annotations struct to be
+  null. A tool with none of those three hints does not state whether
+  the action is read-only, returns untrusted content, or is
+  consequential. The declarative form explainer does not define
+  annotation attributes, so a form tool has no semantic annotation.
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: agent_tool_annotation_missing
+  note: >
+    Fire for each detected tool that does not set readOnlyHint,
+    untrustedContentHint, or consequentialHint. An explicit false is
+    still an annotation. debugging alone is not. Fire on
+    {page url}#{tool name}.
+recommendation: >
+  Set the annotation hints that match the action: readOnlyHint,
+  untrustedContentHint, and consequentialHint.

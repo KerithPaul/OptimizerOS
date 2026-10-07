@@ -1,0 +1,8 @@
+[project]
+name = "golden-b-backend"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.115",
+    "pymysql>=1.1",
+]

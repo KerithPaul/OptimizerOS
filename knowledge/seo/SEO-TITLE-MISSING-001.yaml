@@ -1,0 +1,24 @@
+rule_id: SEO-TITLE-MISSING-001
+category: technical_seo
+severity: high
+confidence: high
+source:
+  name: "Google Search Central — Influencing title links in Google Search"
+  source_url: "https://developers.google.com/search/docs/appearance/title-link"
+  authority: official_vendor_docs
+retrieved_at: "2026-09-09"
+content: >
+  Google's own guidance states plainly: "Make sure every page on your site
+  has a title specified in the <title> element." Without one, Google (and
+  every other consumer of the page — browser tabs, social shares, bookmarks)
+  falls back to generating a title from other page signals, which is
+  unpredictable and outside the site owner's control.
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: title_missing
+  field: title
+  operator: is_null
+recommendation: >
+  Add a <title> element inside the page's <head> with descriptive, concise
+  text unique to that page. Avoid vague values like "Home" or "Untitled".

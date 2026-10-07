@@ -1,0 +1,28 @@
+rule_id: SEO-CANONICAL-001
+category: technical_seo
+severity: medium
+confidence: high
+source:
+  name: "Google Search Central — How to specify a canonical with rel=\"canonical\" and other methods"
+  source_url: "https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls"
+  authority: official_vendor_docs
+retrieved_at: "2026-09-09"
+content: >
+  Google's canonicalization documentation explains that specifying a
+  canonical URL "helps search engines consolidate the signals they have
+  for individual URLs (such as links) into a single, preferred URL." A
+  crawled page with no canonical signal at all (no <link rel="canonical">,
+  no equivalent HTTP header, no self-reference) leaves Google to pick a
+  canonical algorithmically from whatever duplicate/near-duplicate
+  candidates it finds, which is unpredictable and outside the site owner's
+  control.
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: canonical_missing
+  field: canonical
+  operator: is_null
+recommendation: >
+  Add a self-referencing <link rel="canonical" href="..."> in the page's
+  <head> pointing at the page's own preferred URL (or at the true
+  duplicate's preferred URL, if this page is intentionally a variant).

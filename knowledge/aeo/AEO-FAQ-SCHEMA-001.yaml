@@ -1,0 +1,33 @@
+rule_id: AEO-FAQ-SCHEMA-001
+category: aeo
+severity: low
+confidence: low
+source:
+  name: "schema.org — FAQPage"
+  source_url: "https://schema.org/FAQPage"
+  authority: official_standard
+retrieved_at: "2026-09-09"
+content: >
+  A FAQPage schema.org block structures a page's questions and answers as
+  explicit, machine-readable pairs. Note the change of provenance this
+  rule must be honest about: Google's own FAQPage rich-result documentation
+  was removed from Search Central in June 2025, and Google stopped showing
+  the FAQ rich result in Search entirely from May 2026 — so this is no
+  longer a route to a Google SERP feature. It is kept as a low-confidence
+  AEO signal because the FAQPage type itself remains a valid, current
+  schema.org type, and other AI answer engines that consume structured
+  data are not bound by Google's SERP feature decisions; ArchitectOS makes
+  no claim that any specific engine currently rewards it.
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: faq_schema_absent_with_faq_content
+  note: >
+    Fires when the page has 2 or more entries in `questions` with a
+    non-null `answer` (i.e. it functions as an FAQ), but no entry in
+    `structured_data` has `type` equal to "FAQPage" or "QAPage".
+recommendation: >
+  If the page already presents multiple visible question/answer pairs
+  authored by the site (not user-submitted), add matching FAQPage JSON-LD
+  so the pairs are also available as structured data — understanding this
+  no longer produces a Google rich result.

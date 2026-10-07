@@ -1,0 +1,29 @@
+rule_id: SEO-URL-COMPLEXITY-001
+category: technical_seo
+severity: low
+confidence: low
+source:
+  name: "Google Search Central — URL structure best practices for Google Search"
+  source_url: "https://developers.google.com/search/docs/crawling-indexing/url-structure"
+  authority: official_vendor_docs
+retrieved_at: "2026-09-09"
+content: >
+  Google recommends "a simple URL structure with logical organization that
+  is intelligible to humans," and warns that "overly complex URLs with
+  multiple parameters can cause crawling problems" by wasting crawl
+  budget. Google is also on record that URL structure is a minor factor
+  overall, so this rule is deliberately low severity and low confidence —
+  it flags a candidate for cleanup, not a defect with a measurable ranking
+  cost.
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: url_structure_complex
+  note: >
+    Fires when `url`'s query string contains more than 3 parameters, or
+    its path has more than 6 segments — heuristic thresholds, not values
+    Google publishes.
+recommendation: >
+  Where practical, prefer a shorter, human-readable path over deep
+  parameter chains, and consider canonicalizing parameter variants that
+  return the same content (see SEO-CANONICAL-001).

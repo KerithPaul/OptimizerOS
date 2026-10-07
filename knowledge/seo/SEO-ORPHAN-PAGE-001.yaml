@@ -1,0 +1,33 @@
+rule_id: SEO-ORPHAN-PAGE-001
+category: technical_seo
+severity: medium
+confidence: high
+source:
+  name: "Google Search Central — SEO link best practices for Google"
+  source_url: "https://developers.google.com/search/docs/crawling-indexing/links-crawlable"
+  authority: official_vendor_docs
+retrieved_at: "2026-09-09"
+content: >
+  Google documents that it "uses links as a signal when determining the
+  relevancy of pages and to find new pages to crawl." A page with zero
+  inbound internal links from anywhere else on the crawled site — an
+  orphan page — receives no internal link-equity signal and, on a site
+  that relies on internal links for discovery, may be harder for Google to
+  find and re-crawl at all. This is exactly the check the Neo4j Page/URL/
+  LINKS_TO graph (step 3.D.1) exists to answer.
+conditions:
+  applies_to: website
+  evaluation: mechanical
+  check: orphan_page
+  note: >
+    Fires for a crawled page with zero inbound internal links from a
+    different URL in the same evaluation set (self-links are discarded).
+    The site root (path `/`) is not an orphan: it is discoverable as the
+    site's address. `/index.html` is still evaluated. See
+    `app.knowledge.evaluator._orphan_page` and
+    `app.intelligence.website.graph.orphan_pages`.
+recommendation: >
+  Add at least one internal link to this page from elsewhere on the site
+  (navigation, a related-content section, or a relevant in-body link), or
+  confirm the page is intentionally unlinked (e.g. an old page kept only
+  for existing external backlinks).

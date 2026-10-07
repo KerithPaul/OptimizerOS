@@ -1,0 +1,32 @@
+rule_id: SEO-HEADING-SKIP-001
+category: technical_seo
+severity: low
+confidence: high
+source:
+  name: "W3C WAI — Understanding Success Criterion 2.4.6: Headings and Labels"
+  source_url: "https://www.w3.org/WAI/WCAG22/Understanding/headings-and-labels.html"
+  authority: official_standard
+retrieved_at: "2026-09-09"
+content: >
+  WCAG 2.4.6 (Headings and Labels, level AA) requires headings that
+  accurately describe topic or purpose so users — especially screen-reader
+  users, who commonly navigate by jumping between headings — can
+  understand how a page's content is organized. A heading level skip (for
+  example an H2 followed directly by an H4, with no H3) breaks that
+  navigable outline: screen-reader users jumping by level miss the
+  skipped section, and the document's implied topic hierarchy becomes
+  ambiguous.
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: heading_level_skip
+  note: >
+    Walk `headings` in document order; fires if any heading's `level` is
+    more than one greater than the immediately previous heading (a level
+    can drop by any amount, but a step down the outline can only increase
+    by 1). An H2 followed later by an H4 is a skip even if an H3 appeared
+    earlier in the page.
+recommendation: >
+  Reorder the heading levels so each level-up step increases by exactly
+  one (e.g. insert the missing H3, or demote the H4 to H3) without
+  changing which text is visually a heading.

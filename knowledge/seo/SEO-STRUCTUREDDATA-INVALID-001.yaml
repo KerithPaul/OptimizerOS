@@ -1,0 +1,26 @@
+rule_id: SEO-STRUCTUREDDATA-INVALID-001
+category: technical_seo
+severity: medium
+confidence: high
+source:
+  name: "Google Search Central — General structured data guidelines"
+  source_url: "https://developers.google.com/search/docs/appearance/structured-data/sd-policies"
+  authority: official_vendor_docs
+retrieved_at: "2026-09-09"
+content: >
+  Google's structured data guidelines are explicit that markup only
+  enables rich-result eligibility when it is implemented correctly — "using
+  structured data enables a feature to be present, it does not guarantee
+  that it will be present." A JSON-LD block that fails to parse is worse
+  than having none: it represents author intent to provide machine-
+  readable data that a parser (Google's, or any other consumer's) cannot
+  actually read.
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: structured_data_parse_error
+  note: "Fires per entry in `structured_data` where `parse_error` is not null."
+recommendation: >
+  Fix the JSON-LD syntax error named in `parse_error` (common causes:
+  trailing commas, unescaped quotes inside string values, or a missing
+  closing brace) and re-validate the block.

@@ -1,0 +1,27 @@
+rule_id: SEO-LANG-MISSING-001
+category: technical_seo
+severity: low
+confidence: high
+source:
+  name: "W3C WAI — H57: Using language attributes on the html element"
+  source_url: "https://www.w3.org/WAI/WCAG21/Techniques/html/H57.html"
+  authority: official_standard
+retrieved_at: "2026-09-09"
+content: >
+  W3C's technique H57 documents the lang attribute on <html> as how a
+  document identifies its default language — used by screen readers to
+  select correct pronunciation and by braille translation software to
+  apply the right substitution rules. Google has stated it does not use
+  lang or hreflang to detect a page's actual language (it uses its own
+  content-based algorithms), so this is graded as an accessibility/
+  standards-compliance defect rather than an indexing-blocking one.
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: lang_missing
+  field: language
+  operator: is_null
+recommendation: >
+  Add a lang attribute to the <html> element with the correct BCP 47
+  language tag for the page's primary content language (e.g. lang="en" or
+  lang="en-GB").

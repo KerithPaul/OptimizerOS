@@ -1,0 +1,27 @@
+rule_id: SEO-IMAGE-ALT-001
+category: technical_seo
+severity: medium
+confidence: high
+source:
+  name: "Google Search Central — Image SEO best practices"
+  source_url: "https://developers.google.com/search/docs/appearance/google-images"
+  authority: official_vendor_docs
+retrieved_at: "2026-09-09"
+content: >
+  Google's image SEO documentation names alt text as "the most important
+  attribute when it comes to providing more metadata for an image,"
+  describing it as helping search engines understand the image's context
+  and, separately, improving accessibility for screen-reader and
+  low-bandwidth users. An <img> with no alt attribute (or an empty one on
+  a non-decorative image) gives Google and assistive technology nothing to
+  work with for that image.
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: image_missing_alt
+  note: "Fires per entry in `images` where `alt` is null or an empty string."
+recommendation: >
+  Add a short, descriptive alt attribute to each content image that
+  explains what the image shows and how it relates to the surrounding
+  text; purely decorative images should use alt="" deliberately, not omit
+  the attribute.

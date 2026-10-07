@@ -1,0 +1,28 @@
+rule_id: AEO-AUTHORSHIP-DATE-001
+category: aeo
+severity: low
+confidence: medium
+source:
+  name: "Google Search Central — Article structured data"
+  source_url: "https://developers.google.com/search/docs/appearance/structured-data/article"
+  authority: official_vendor_docs
+retrieved_at: "2026-09-09"
+content: >
+  Google's Article structured data documentation defines `author` and
+  `datePublished`/`dateModified` as recognized properties. Beyond the
+  Google rich-result use case, an answer surface deciding whether to
+  extract and attribute a passage benefits from an explicit, machine-
+  readable byline and date — it is a concrete trust and freshness signal,
+  distinct from the page's visible text, that this rule checks for on
+  content shaped like an article/answer page.
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: authorship_date_markup_missing
+  note: >
+    Fires when the page has an Article/NewsArticle/BlogPosting-typed entry
+    in `structured_data` (by `type`) whose `parsed` dict lacks both an
+    "author" key and a "datePublished" key.
+recommendation: >
+  Add author and datePublished (and dateModified, if the page is
+  periodically updated) to the page's Article structured data.

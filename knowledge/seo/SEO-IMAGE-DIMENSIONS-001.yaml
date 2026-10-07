@@ -1,0 +1,26 @@
+rule_id: SEO-IMAGE-DIMENSIONS-001
+category: technical_seo
+severity: low
+confidence: high
+source:
+  name: "web.dev — Serve images with correct dimensions"
+  source_url: "https://web.dev/articles/serve-images-with-correct-dimensions"
+  authority: official_vendor_docs
+retrieved_at: "2026-09-09"
+content: >
+  web.dev (Google's own web-performance documentation) explains that
+  without explicit width/height (or equivalent CSS sizing), "the browser
+  has no idea how much space the image will take up until it has loaded,"
+  which causes layout shift as the page renders — unsized images are
+  described as "the biggest contributor to layout shift" on the web
+  today. This is a page-experience/Core Web Vitals diagnostic, captured
+  here as a raw signal rather than folded into a ranking claim.
+conditions:
+  applies_to: page
+  evaluation: mechanical
+  check: image_missing_dimensions
+  note: "Fires per entry in `images` where `width` is null or `height` is null."
+recommendation: >
+  Set explicit width and height attributes (matching the image's intrinsic
+  aspect ratio) on each <img>, so the browser can reserve layout space
+  before the image loads.
