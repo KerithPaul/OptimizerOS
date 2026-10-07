@@ -1,4 +1,4 @@
-# ArchitectOS — local development (Windows)
+# OptimizerOS — local development (Windows)
 
 Phase 1 setup: four datastores in Docker, a FastAPI backend + worker running
 natively on the host, and a Next.js frontend. This is the minimum needed to
